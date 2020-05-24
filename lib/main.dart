@@ -18,13 +18,13 @@ void main()
 
   class MyHomePage extends StatelessWidget{
 
-
   @override
   Widget build(BuildContext context){
     return Scaffold(
         appBar: AppBar(
           title: Text('FLUTTER APP'),
         ),
+      resizeToAvoidBottomPadding: false,         //to resolve bottom overflow error
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start ,
         crossAxisAlignment: CrossAxisAlignment.stretch,
