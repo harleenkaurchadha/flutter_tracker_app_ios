@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget{
+class NewTransaction extends StatefulWidget{
   final Function addTx;
+
+  NewTransaction(this.addTx);
+
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
   final titleController=TextEditingController();
   final amountController=TextEditingController();
 
-  NewTransaction(this.addTx);
+  void submitData(){
+      final enteredTitle= titleController.text;
+      final enteredAmount= double.parse(amountController.text);
+      if(enteredTitle.isEmpty || enteredAmount<=0)
+        {
+          return;
+        }
+
+      widget.addTx(
+          enteredTitle,
+          enteredAmount);
+
+      Navigator.of(context).pop();               //to close the topmost screen of display
+      }
 
   @override
 
@@ -18,19 +39,18 @@ class NewTransaction extends StatelessWidget{
           TextField(
             decoration: InputDecoration(labelText: 'Title'),
             controller: titleController,                                     //controller listens and saves the user input
+            onSubmitted: (_) => submitData(),
           ),
           TextField(
             decoration: InputDecoration(labelText: 'Amount'),
             controller: amountController,
+            keyboardType: TextInputType.number,                        //number keyboard should be displayed
+            onSubmitted: (_) => submitData(),                       //just the syntax
           ),
           FlatButton(child: Text('Add Transaction'),
             textColor: Colors.purpleAccent,
-            onPressed: () {
-            addTx(titleController.text,
-                  double.parse(amountController.text),
-            );  //can't give _addNewTransaction since it is a private function in private class
-         },
-    ),
+            onPressed: submitData,
+          ),
         ],
       ),
     ),

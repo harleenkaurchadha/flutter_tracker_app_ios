@@ -6,11 +6,12 @@ class TransactionList extends StatelessWidget{
   final List<Transaction> transactions;   // incoming list of transactions
 
   TransactionList(this.transactions);
+
   @override
 
   Widget build(BuildContext context){
     return Container(
-      height: 340,           // constraint on  ListView height it should take
+      height: 300,           // constraint on  ListView height it should take
       child: ListView.builder(
         itemBuilder: (ctx, index) {   //executes on every item in the list to be rendered
           return Card(
@@ -22,15 +23,15 @@ class TransactionList extends StatelessWidget{
                     horizontal: 15,
                   ),
                   padding: EdgeInsets.all(10) ,
-                  child: Text('\$${transactions[index].amount}',
+                  child: Text('\$${transactions[index].amount.toStringAsFixed(2)}',   //always get the amount to 2 decimal places
                     style: TextStyle(
-                      color: Colors.purpleAccent,
+                      color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.purpleAccent,
+                      color: Theme.of(context).primaryColor,
                       width: 3,
                       style: BorderStyle.solid,
                     ),
