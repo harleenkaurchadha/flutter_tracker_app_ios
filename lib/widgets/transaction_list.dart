@@ -28,42 +28,29 @@ class TransactionList extends StatelessWidget{
               )   : ListView.builder(
         itemBuilder: (ctx, index) {   //executes on every item in the list to be rendered
           return Card(
-            child: Row(
-              children:[
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 15,
-                  ),
-                  padding: EdgeInsets.all(10) ,
-                  child: Text('\$${transactions[index].amount.toStringAsFixed(2)}',   //always get the amount to 2 decimal places
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Theme.of(context).primaryColor,
-                      width: 3,
-                      style: BorderStyle.solid,
-                    ),
-                  ) ,),
-                Column(children: [
-                  Text(transactions[index].title,
-                    // ignore: deprecated_member_use
-                    style: Theme.of(context).textTheme.title,),
-                  Text(DateFormat.yMMMd().format(transactions[index].date),     //format and return date in string
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
-                  ),
-                ],
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                ),
-              ],
+              elevation: 5,
+              margin: EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 5,
+              ),
+              child: ListTile(
+              leading: CircleAvatar(
+              radius: 30,
+              child: Padding(
+                  padding: EdgeInsets.all(6),
+                  child: FittedBox(
+                  child: Text('\$${transactions[index].amount}')
+              ),
+              ),
             ),
+              title: Text(
+                     transactions[index].title,
+                     // ignore: deprecated_member_use
+                     style: Theme.of(context).textTheme.title),
+              subtitle: Text(
+                  DateFormat.yMMMd().format(transactions[index].date)
+              ),
+          ),
           );
         },
         itemCount: transactions.length,     //how many items should be build
