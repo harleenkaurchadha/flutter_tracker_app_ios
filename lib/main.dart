@@ -25,7 +25,10 @@ void main()
                 fontFamily: 'OpenSans',
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
-              )
+              ),
+              button: TextStyle(
+              color: Colors.white,
+            ),
             ),
             appBarTheme: AppBarTheme(
               textTheme:ThemeData.light().textTheme.copyWith(  //all text element in appbar receives this theme(make as default)
@@ -35,7 +38,7 @@ void main()
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
+               ),
             )),
         home: MyHomePage(),
       );
@@ -73,11 +76,11 @@ void main()
         }).toList();
     }
 
-    void _addNewTransaction(String txTitle, double txAmount){
+    void _addNewTransaction(String txTitle, double txAmount, DateTime chosenDate){
       final newTx= Transaction(
         title: txTitle,
         amount: txAmount,
-        date: DateTime.now(),
+        date: chosenDate,
         id: DateTime.now().toString(),
       );
 
