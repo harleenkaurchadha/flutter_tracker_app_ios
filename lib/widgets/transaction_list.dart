@@ -12,7 +12,7 @@ class TransactionList extends StatelessWidget{
 
   Widget build(BuildContext context){
     return Container(
-      height: 300,           // constraint on  ListView height it should take
+      height: 400,           // constraint on  ListView height it should take
       child: transactions.isEmpty ? Column(children:[
         Text('No Transactions added yet!!',
               // ignore: deprecated_member_use

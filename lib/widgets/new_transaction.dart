@@ -11,7 +11,7 @@ class NewTransaction extends StatefulWidget{
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  final _titleController=TextEditingController();
+  final _titleController=TextEditingController();    // whenever a text field is modified the listener is notified by text editing controller
   final _amountController=TextEditingController();
    DateTime _selectedDate;
 
@@ -64,7 +64,7 @@ class _NewTransactionState extends State<NewTransaction> {
             decoration: InputDecoration(labelText: 'Title'),
             controller: _titleController,                                     //controller listens and saves the user input
             onSubmitted: (_) => _submitData(),
-          ),
+            ),
           TextField(
             decoration: InputDecoration(labelText: 'Amount'),
             controller: _amountController,

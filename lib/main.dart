@@ -108,25 +108,38 @@ void main()
    }
   @override
   Widget build(BuildContext context){
+      final appBar= AppBar(     //since this object now store info about the height of the appBar
+        title: Text('Personal Expenses'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _startNewTransaction(context),
+          )
+        ],
+      );
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Personal Expenses'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => _startNewTransaction(context),
-            )
-          ],
-        ),
-      resizeToAvoidBottomPadding: false,         //to resolve bottom overflow error
-      body: Column(
+        appBar: appBar,
+//      resizeToAvoidBottomPadding: false,         //to resolve bottom overflow error
+      body: SingleChildScrollView(
+        child: Column(
         mainAxisAlignment: MainAxisAlignment.start ,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-             Chart(_recentTransactions),
-             TransactionList(_userTransactions,_deleteTransaction),
-
-        ],),
+            Container(
+              height: (MediaQuery.of(context).size.height-
+                       appBar.preferredSize.height -
+                       MediaQuery.of(context).padding.top) * 0.3,
+              child: Chart(_recentTransactions),
+            ),
+             Container(
+               height: (MediaQuery.of(context).size.height-
+                        appBar.preferredSize.height-
+                        MediaQuery.of(context).padding.top) * 0.7,
+               child: TransactionList(_userTransactions,_deleteTransaction),
+             ),
+        ],
+       ),
+      ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat ,
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),

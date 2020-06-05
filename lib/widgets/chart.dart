@@ -47,7 +47,7 @@ Widget build(BuildContext context){
         padding: EdgeInsets.all(10),
         child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: groupedTransactionValues.map((data){
+        children: groupedTransactionValues.map((data){        //form list of widgets from a list of iterables
         return Flexible(
           fit: FlexFit.tight,
           child: ChartBar(
