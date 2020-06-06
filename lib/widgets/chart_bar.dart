@@ -50,7 +50,7 @@ class ChartBar extends StatelessWidget{
                     child: Text(label),
                 ),
             ),
-          ]);;
+          ]);
     },);
   }
 }

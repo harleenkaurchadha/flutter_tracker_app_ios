@@ -67,6 +67,8 @@ void main()
 //        date: DateTime.now(),
 //      ),
     ];
+    bool _showChart=false;
+
     List<Transaction> get _recentTransactions{
       return _userTransactions.where((tx){
         return tx.date.isAfter(
@@ -108,6 +110,7 @@ void main()
    }
   @override
   Widget build(BuildContext context){
+      final isLandscape= MediaQuery.of(context).orientation== Orientation.landscape;
       final appBar= AppBar(     //since this object now store info about the height of the appBar
         title: Text('Personal Expenses'),
         actions: <Widget>[
@@ -117,6 +120,12 @@ void main()
           )
         ],
       );
+      final txList=  Container(
+        height: (MediaQuery.of(context).size.height-
+            appBar.preferredSize.height-
+            MediaQuery.of(context).padding.top) * 0.7,
+        child: TransactionList(_userTransactions,_deleteTransaction),
+      );
     return Scaffold(
         appBar: appBar,
 //      resizeToAvoidBottomPadding: false,         //to resolve bottom overflow error
@@ -125,18 +134,35 @@ void main()
         mainAxisAlignment: MainAxisAlignment.start ,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-            Container(
-              height: (MediaQuery.of(context).size.height-
-                       appBar.preferredSize.height -
-                       MediaQuery.of(context).padding.top) * 0.3,
-              child: Chart(_recentTransactions),
+          if(isLandscape) Row(                    // if true then row is added otherwise nothing
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+              Text('Show Chart'),
+              Switch(
+                value: _showChart,
+                onChanged: (val){
+                  setState((){
+                    _showChart=val;
+                  });
+                  },
+              ),
+            ],
             ),
-             Container(
-               height: (MediaQuery.of(context).size.height-
-                        appBar.preferredSize.height-
-                        MediaQuery.of(context).padding.top) * 0.7,
-               child: TransactionList(_userTransactions,_deleteTransaction),
-             ),
+          if(!isLandscape) Container(
+            height: (MediaQuery.of(context).size.height-
+                appBar.preferredSize.height -
+                MediaQuery.of(context).padding.top) * 0.3,
+            child: Chart(_recentTransactions),
+          ),
+          if(!isLandscape) txList,
+          if(isLandscape) _showChart ? Container(
+            height: (MediaQuery.of(context).size.height-
+                appBar.preferredSize.height -
+                MediaQuery.of(context).padding.top) * 0.7,
+            child: Chart(_recentTransactions),
+          )  :
+          txList,
+
         ],
        ),
       ),
