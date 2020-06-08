@@ -1,5 +1,9 @@
+import 'package:expenses_app/widgets/adaptive_flatButton.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import './adaptive_flatButton.dart';
 
 class NewTransaction extends StatefulWidget{
   final Function addTx;
@@ -36,7 +40,12 @@ class _NewTransactionState extends State<NewTransaction> {
 
      void _presentDatePicker()
      {
-       showDatePicker(
+         Platform.isIOS ? CupertinoDatePicker(
+           mode: CupertinoDatePickerMode.date,
+         initialDateTime: DateTime.now(),
+    //     maximumDate: DateTime(2019),
+    //     minimumYear: ,
+         ) : showDatePicker(
            context: context,
            initialDate: DateTime.now(),
            firstDate: DateTime(2019),
@@ -83,15 +92,7 @@ class _NewTransactionState extends State<NewTransaction> {
                Expanded(
                 child: Text((_selectedDate== null) ? 'No Date Chosen!' : 'Picked Date: ${DateFormat.yMMMd().format(_selectedDate)}'),
                ),
-              FlatButton(
-                child:
-                Text('Choose Date',
-                style: TextStyle(
-                fontWeight: FontWeight.bold)
-                ),
-                textColor: Theme.of(context).primaryColor,
-                onPressed: _presentDatePicker,
-              ),
+               AdaptiveFlatButton(_presentDatePicker),
             ],),
             ),
             RaisedButton(

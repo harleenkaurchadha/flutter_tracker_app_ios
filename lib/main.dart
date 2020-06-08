@@ -142,7 +142,7 @@ void main()
         child: TransactionList(_userTransactions,_deleteTransaction),
       );
 
-      final pageBody= SingleChildScrollView(
+      final pageBody= SafeArea(child: SingleChildScrollView(   //to respect the reserved areas & everything is positioned within boundaries
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start ,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -150,8 +150,10 @@ void main()
             if(isLandscape) Row(                    // if true then row is added otherwise nothing
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Show Chart'),
-                Switch(
+                // ignore: deprecated_member_use
+                Text('Show Chart',style: Theme.of(context).textTheme.title),
+                 Switch.adaptive(
+                   activeColor: Theme.of(context).accentColor,
                   value: _showChart,
                   onChanged: (val){
                     setState((){
@@ -178,6 +180,7 @@ void main()
 
           ],
         ),
+      )
       );
     return Platform.isIOS ? CupertinoPageScaffold(
        child: pageBody,
