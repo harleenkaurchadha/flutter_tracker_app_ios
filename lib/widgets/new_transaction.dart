@@ -2,6 +2,7 @@ import 'package:expenses_app/widgets/adaptive_flatButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import './adaptive_flatButton.dart';
 
@@ -40,16 +41,35 @@ class _NewTransactionState extends State<NewTransaction> {
 
      void _presentDatePicker()
      {
-         Platform.isIOS ? CupertinoDatePicker(
-           mode: CupertinoDatePickerMode.date,
-         initialDateTime: DateTime.now(),
-    //     maximumDate: DateTime(2019),
-    //     minimumYear: ,
+         Platform.isIOS ? showCupertinoModalPopup(
+           context: context,
+           builder: (_) => Container(
+             height: 500,
+             child: Column(
+               children: [
+                Container(
+                  color: Colors.white,
+                  height: 400,
+                  child: CupertinoDatePicker(
+                    mode: CupertinoDatePickerMode.date,
+                    initialDateTime: DateTime.now(),
+                    minimumDate:  DateTime(2019),
+                    maximumDate: DateTime.now(),
+                    onDateTimeChanged: (pickedDate){
+                      setState(() {
+                        _selectedDate = pickedDate;
+                      });
+                    },
+                  ),
+                ),
+               ],
+             ),
+           ),
          ) : showDatePicker(
            context: context,
            initialDate: DateTime.now(),
            firstDate: DateTime(2019),
-           lastDate: DateTime.now()
+             lastDate: DateTime.now()
        ).then((pickedDate){                         //informs us when user picked a date and waits for user input
          if(pickedDate== null)
            {

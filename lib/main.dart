@@ -39,6 +39,7 @@ void main()
                 title: TextStyle(                            //and copy that with new overwritten values
                   fontFamily: 'OpenSans',
                   fontSize: 20,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
                ),
@@ -116,7 +117,10 @@ void main()
       final mediaQuery = MediaQuery.of(context);
       final isLandscape= mediaQuery.orientation== Orientation.landscape;
       final PreferredSizeWidget appBar= Platform.isIOS ? CupertinoNavigationBar(
-        middle: Text('Personal Expenses',),
+        middle: Text('Personal Expenses',
+        style: Theme.of(context).appBarTheme.textTheme.title,
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children:[
