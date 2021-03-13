@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './widgets/transaction_list.dart';
@@ -156,7 +155,15 @@ void main()
               children: [
                 // ignore: deprecated_member_use
                 Text('Show Chart',style: Theme.of(context).textTheme.title),
-                 Switch.adaptive(
+                 !Platform.isIOS ? Switch(
+                   value: _showChart,
+                   onChanged: (val) {
+                     setState(() {
+                       _showChart = val;
+                     });
+                   },
+                 )
+                     : Switch.adaptive(
                    activeColor: Theme.of(context).accentColor,
                   value: _showChart,
                   onChanged: (val){
@@ -191,7 +198,7 @@ void main()
        navigationBar: appBar,
        )  : Scaffold(
         appBar: appBar,
-//      resizeToAvoidBottomPadding: false,         //to resolve bottom overflow error
+ //      resizeToAvoidBottomPadding: false,         //to resolve bottom overflow error
         body: pageBody,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat ,
         floatingActionButton: FloatingActionButton(
